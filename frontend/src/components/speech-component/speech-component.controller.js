@@ -3,17 +3,11 @@ export default class SpeechComponentController {
     this.SpeechService = SpeechService;
     this.$rootScope = $rootScope;
 
-    this.speech = {
-      msg: this.SpeechService.messages.info_setup,
-      icon: this.SpeechService.icons.start,
-      recognizing: false
-    }
+    this.form = {};
   }
 
-  setMsg(msg){
-    this.$rootScope.$apply(() => {
-      this.speech.msg = this.SpeechService.messages[msg]
-    });
+  change() {
+    console.log(this.form);
   }
 }
 SpeechComponentController.$inject = ['SpeechService', '$rootScope'];
