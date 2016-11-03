@@ -1,6 +1,5 @@
 export default class HomeController {
-  constructor(ExampleService){
-    this.message = ExampleService.test();
+  constructor(){
   }
 }
-HomeController.$inject = ['ExampleService'];
+HomeController.$inject = [];

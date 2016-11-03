@@ -1,10 +1,4 @@
 <div class="speech-component">
-    <a href="" class="jsSpeechFactory-btn" ng-click="toggleStartStop()">
-
-        <i class="fa fa-microphone fa-2x" ng-hide="vm.form.recognizing"></i>
-        <i class="fa fa-microphone-slash fa-2x" ng-show="vm.form.recognizing"></i>
-
-    </a>
-    <input type="text" class="form-control" ng-model="vm.form.value" ng-change="vm.change()"/>
-    <p class="text-muted jsSpeechFactory-hint" ng-bind-html-unsafe="speech.msg"></p>
+    <input type="text" class="form-control" ng-model="vm.form.value"/>
+    <button class="btn btn-primary" ng-show="vm.recognition" ng-click="vm.start()">écouter</button>
 </div>
