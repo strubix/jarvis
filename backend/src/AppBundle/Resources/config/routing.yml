@@ -1,0 +1,7 @@
+app_category:
+    resource: "@AppBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
+app_task:
+    resource: "@AppBundle/Resources/config/routing/task.yml"
+    prefix:   /task
