@@ -26,7 +26,14 @@ npm install
 
 * Front-end
 
-In front folder :
+In backend/app folder :
+
+```
+php app/console server:run
+```
+This win run Symfony server on *http://127.0.0.1:8000/*.
+
+In frontend folder :
 
 ```
 npm run dev
