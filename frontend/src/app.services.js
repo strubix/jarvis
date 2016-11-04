@@ -1,10 +1,10 @@
 import angular from 'angular';
-import SpeechService from './services/speech.service'
+import ApiService from './services/api.service'
 
 const services = 'app.services';
 
 angular.module(services, [])
-    .service('SpeechService', SpeechService)
+    .service('ApiService', ApiService)
 ;
 
 export default services;

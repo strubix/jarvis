@@ -1,5 +1,10 @@
 export default class HomeController {
-  constructor(){
+  constructor(ApiService) {
+    this.ApiService = ApiService;
+
+    this.ApiService.request().then((response) => {
+      console.log(response);
+    })
   }
 }
-HomeController.$inject = [];
+HomeController.$inject = ['ApiService'];

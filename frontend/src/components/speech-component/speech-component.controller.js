@@ -1,6 +1,5 @@
 export default class SpeechComponentController {
-  constructor(SpeechService, $rootScope) {
-    this.SpeechService = SpeechService;
+  constructor($rootScope) {
     this.$rootScope = $rootScope;
 
     this.form = {};
@@ -40,4 +39,4 @@ export default class SpeechComponentController {
     this.recognition.start();
   }
 }
-SpeechComponentController.$inject = ['SpeechService', '$rootScope'];
+SpeechComponentController.$inject = ['$rootScope'];
