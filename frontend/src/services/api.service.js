@@ -4,11 +4,11 @@ export default class ApiService {
     this.url = 'http://127.0.0.1:8000/';
   }
 
-  request(url = false) {
+  request(req, url = false) {
     if(url){
-      this.$http.get(this.url + url);
+      this.$http[req](this.url + url);
     }
-    return this.$http.get(this.url);
+    return this.$http[req](this.url);
   }
 }
 ApiService.$inject = ['$http'];
