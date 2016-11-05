@@ -2,3 +2,16 @@
     ~ => node_modules
 */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/scss/font-awesome.scss';
+
+/* Animations between states */
+main {
+  &.ng-enter {
+    transition: 1.5s;
+    opacity: 0;
+  }
+
+  &.ng-enter-active {
+    opacity: 1;
+  }
+}

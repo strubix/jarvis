@@ -10,6 +10,10 @@ angular.module(routes, ['ui.router'])
             url: "/",
             template: "<home></home>",
           })
+          .state("register", {
+            url: "/register",
+            template: "<register></register>",
+          })
     }]);
 
 export default routes;
