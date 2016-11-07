@@ -1,10 +1,16 @@
 /*
     ~ => node_modules
 */
+// Bootstrap
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+// Font awesome
 @import '~font-awesome/scss/font-awesome.scss';
 
-/* Animations between states */
+// Angular flash
+//@import '~angular-flash-alert/dist/angular-flash.min.css';
+
+// Animations between states
 main {
   &.ng-enter {
     transition: 1.5s;
