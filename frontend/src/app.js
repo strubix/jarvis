@@ -11,4 +11,9 @@ import services from './app.services';
 angular.module('app', [
   router, animate,
   components, routes, services
-]);
+]).config(['$httpProvider', $httpProvider => {
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
+}]);

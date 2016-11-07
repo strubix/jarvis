@@ -4,7 +4,7 @@ export default class HomeController {
 
     this.ApiService.request('get').then((response) => {
       console.log(response);
-    })
+    });
   }
 }
 HomeController.$inject = ['ApiService'];
