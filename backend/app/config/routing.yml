@@ -1,6 +1,12 @@
-app:
-    resource: "@AppBundle/Controller/"
+api:
+    resource: "@ApiBundle/Controller/"
     type:     annotation
+    prefix:   /
 
-api_login_check:
-    path: /api/login_check
+users:
+    type:   rest
+    resource:   Jarvis\ApiBundle\Controller\UserController
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

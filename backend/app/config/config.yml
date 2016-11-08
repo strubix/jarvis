@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@ApiBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -10,7 +11,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -65,9 +66,28 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-# LexikJWTAuthenticationBundle
+# Lexik JWT Authentication
 lexik_jwt_authentication:
-    private_key_path: %kernel.root_dir%/../var/jwt/private.pem
-    public_key_path:  %kernel.root_dir%/../var/jwt/public.pem
-    pass_phrase:      totolala
-    token_ttl:        3600
+    private_key_path:   %private_key_path%
+    public_key_path:    %public_key_path%
+    pass_phrase:        %pass_phrase%
+    token_ttl:          %token_ttl%
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
+    request: { converters: true }
+
+# JMS Serializer
+jms_serializer:
+    metadata:
+        auto_detection: true
+
+# Nelmio API doc
+nelmio_api_doc: ~
+
+# FOS RestBundle
+fos_rest:
+    view:
+        templating_formats:
+            json: false

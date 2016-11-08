@@ -15,5 +15,9 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    private_key_path:   %kernel.root_dir%/var/jwt/private.pem
+    public_key_path:    %kernel.root_dir%/var/jwt/public.pem
+    pass_phrase:        totolala
+    token_ttl:          86400
