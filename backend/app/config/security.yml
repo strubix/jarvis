@@ -1,45 +1,26 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
 security:
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
 
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+    encoders:
+        Jarvis\ApiBundle\Entity\User:
+            algorithm: bcrypt
 
     providers:
         in_memory:
-            memory:
-                users:
-                    user:  { password: password, roles: [ 'ROLE_USER' ] }
-                    admin: { password: password, roles: [ 'ROLE_ADMIN' ] }
+            memory: ~
+
+        db_provider:
+            entity:
+                class: Jarvis\ApiBundle:User
+                property: username
 
     firewalls:
         dev:
-            pattern:  ^/api/(_(profiler|wdt|doc))/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            pattern:  ^/api/login
-            stateless: true
-            anonymous: true
-            form_login:
-                check_path: /api/login_check
-                require_previous_session: false
-                username_parameter: username
-                password_parameter: password
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
-        api:
-            pattern:   ^/api
-            stateless: true
-            lexik_jwt:
-                authorization_header:
-                    enabled: true
-                    prefix:  Bearer
-                query_parameter:
-                    enabled: true
-                    name:    bearer
-
-    access_control:
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        main:
+            pattern:    ^/
+            http_basic: ~
+            provider: db_provider
