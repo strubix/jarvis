@@ -20,7 +20,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
             // no token? Return null and no other methods will be called
-            return;
+            return null;
         }
 
         // What you return here will be passed to getUser() as $credentials
