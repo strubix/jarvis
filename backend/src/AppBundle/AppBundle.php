@@ -1,9 +1,9 @@
 <?php
 
-namespace Jarvis\ApiBundle;
+namespace AppBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ApiBundle extends Bundle
+class AppBundle extends Bundle
 {
 }
