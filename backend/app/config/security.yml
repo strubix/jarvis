@@ -21,7 +21,7 @@ security:
             security: false
 
         main:
-            pattern:    ^/
+            pattern:    ^/api
             http_basic: ~
             provider: db_provider
 

@@ -18,6 +18,6 @@ class DefaultController extends Controller
             'message' => 'connected',
         );
 
-        return new JsonResponse($data, 403);
+        return new JsonResponse($data, 200);
     }
 }
