@@ -8,6 +8,10 @@ export default class UserService extends ApiService {
   register(credentials) {
     return this.$http.get(`${this.url}register?username=${credentials.username}&password=${credentials.password}&email=${credentials.email}`);
   }
+
+  login(credentials) {
+    return this.$http.get(`${this.url}login?username=${credentials.username}&password=${credentials.password}`);
+  }
 }
 
 UserService.$inject = ['$http'];

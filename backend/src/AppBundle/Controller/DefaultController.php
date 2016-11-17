@@ -41,11 +41,13 @@ class DefaultController extends Controller
     {
         $parameters = $request->query;
 
-        if (!$parameters->get('username') || !$parameters->get('password')|| !$parameters->get('email')){
+        if (!$parameters->get('username') || !$parameters->get('password') || !$parameters->get('email')) {
             return new JsonResponse(array('message' => 'Les paramètres sont incorrects.'), 400);
         }
 
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username' => $parameters->get('username')));
+        $user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')->
+            findOneBy(array('username' => $parameters->get('username')));
 
         if ($user) {
             return new JsonResponse(array('message' => "L'utilisateur existe déjà."), 400);
@@ -62,5 +64,36 @@ class DefaultController extends Controller
         $em->flush();
 
         return new JsonResponse(array('message' => 'Utilisateur enregistré.'), 200);
+    }
+
+    /**
+     * Log user.
+     *
+     * @Route("/login", name="login")
+     * @Method("GET")
+     */
+    public function loginAction(Request $request)
+    {
+        $parameters = $request->query;
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $parameters->get('username')));
+
+        if (!$user || $parameters->get('password') !== $user->getPassword()) {
+            return new JsonResponse(array('message' => 'Utilisateur inexistant ou mot de passe incorrect.'), 401);
+        }
+
+        $apiKey = $this->generateRandomString();
+
+        $user->setApiKey($apiKey);
+        $em->flush();
+
+        $response = array(
+            'message' => 'Utilisateur connecté.',
+            'username' => $parameters->get('username'),
+            'token' => $apiKey,
+        );
+
+        return new JsonResponse($response, 200);
     }
 }
