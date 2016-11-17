@@ -26,6 +26,16 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", unique=true)
      */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
     private $apiKey;
 
     public function getUsername()
@@ -40,15 +50,15 @@ class User implements UserInterface
 
     public function getPassword()
     {
+        return $this->password;
     }
+
     public function getSalt()
     {
     }
     public function eraseCredentials()
     {
     }
-
-    // more getters/setters
 
     /**
      * Get id
@@ -94,5 +104,41 @@ class User implements UserInterface
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }

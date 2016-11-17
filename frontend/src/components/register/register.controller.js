@@ -1,8 +1,9 @@
 import validator from 'validator';
 
 export default class RegisterController {
-  constructor(UserService) {
+  constructor(UserService, $state) {
     this.UserService = UserService;
+    this.$state = $state;
     this.credentials = {};
   }
 
@@ -27,11 +28,12 @@ export default class RegisterController {
 
     this.UserService.register(credentials)
         .then((response) => {
-          console.log(response);
+          alert(response.data.message);
+          this.$state.go('login');
         })
         .catch((response) => {
-          console.error('Error', response.status, response.data);
+          alert(response.data.message);
         });
   }
 }
-RegisterController.$inject = ['UserService'];
+RegisterController.$inject = ['UserService', '$state'];
