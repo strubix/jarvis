@@ -3,14 +3,25 @@ import ApiService from './api.service';
 export default class UserService extends ApiService {
   constructor($http) {
     super($http);
+    this.user = '';
   }
 
   register(credentials) {
-    return this.$http.get(`${this.url}register?username=${credentials.username}&password=${credentials.password}&email=${credentials.email}`);
+    console.log(credentials);
+    return this.$http.post(`${this.url}register`, credentials);
   }
 
   login(credentials) {
-    return this.$http.get(`${this.url}login?username=${credentials.username}&password=${credentials.password}`);
+    console.log(credentials);
+    return this.$http.post(`${this.url}login`, credentials);
+  }
+
+  setUser(username) {
+    this.user = username;
+  }
+
+  isLoggedIn() {
+    return this.user ? this.user : false;
   }
 }
 

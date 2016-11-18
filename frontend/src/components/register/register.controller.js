@@ -29,6 +29,7 @@ export default class RegisterController {
     this.UserService.register(credentials)
         .then((response) => {
           alert(response.data.message);
+          this.$state.go('login')
         })
         .catch((response) => {
           alert(response.data.message);

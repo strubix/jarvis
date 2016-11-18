@@ -11,9 +11,7 @@ import services from './app.services';
 angular.module('app', [
   router, animate,
   components, routes, services
-]).config(['$httpProvider', function($httpProvider) {
-  $httpProvider.defaults.headers.common = {};
-  $httpProvider.defaults.headers.post = {};
-  $httpProvider.defaults.headers.put = {};
-  $httpProvider.defaults.headers.patch = {};
+]).config(['$httpProvider', ($httpProvider) => {
+  $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 }]);

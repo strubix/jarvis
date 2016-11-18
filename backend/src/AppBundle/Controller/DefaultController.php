@@ -11,15 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction(Request $request)
-    {
-        return new JsonResponse(array('message' => 'connected'), 200);
-    }
-
-    function generateRandomString($length = 10)
+    function generateRandomString($length = 255)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -32,31 +24,44 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction(Request $request)
+    {
+        return new JsonResponse(array('message' => 'connected'), 200);
+    }
+
+    /**
      * Creates a new user entity.
      *
      * @Route("/register", name="register")
-     * @Method("GET")
+     * @Method("POST")
      */
     public function registerAction(Request $request)
     {
-        $parameters = $request->query;
+        $content = $this->get("request")->getContent();
+        $parameters = json_decode($content, true);
 
-        if (!$parameters->get('username') || !$parameters->get('password') || !$parameters->get('email')) {
+        if (!$parameters['username'] || !$parameters['password'] || !$parameters['email']) {
             return new JsonResponse(array('message' => 'Les paramètres sont incorrects.'), 400);
         }
 
         $user = $this->getDoctrine()
-            ->getRepository('AppBundle:User')->
-            findOneBy(array('username' => $parameters->get('username')));
+            ->getRepository('AppBundle:User')
+            ->findOneBy(array('username' => $parameters['username']));
 
         if ($user) {
             return new JsonResponse(array('message' => "L'utilisateur existe déjà."), 400);
         }
 
         $user = new User();
-        $user->setUsername($parameters->get('username'));
-        $user->setPassword($parameters->get('password'));
-        $user->setEmail($parameters->get('email'));
+        $username = $parameters['username'];
+        $password = $parameters['password'];
+        $email = $parameters['email'];
+
+        $user->setUsername($username);
+        $user->setPassword($password);
+        $user->setEmail($email);
         $user->setApiKey($this->generateRandomString());
 
         $em = $this->getDoctrine()->getManager();
@@ -70,16 +75,20 @@ class DefaultController extends Controller
      * Log user.
      *
      * @Route("/login", name="login")
-     * @Method("GET")
+     * @Method("POST")
      */
     public function loginAction(Request $request)
     {
-        $parameters = $request->query;
+        $parameters = array();
+        $content = $this->get("request")->getContent();
+        if (!empty($content)) {
+            $parameters = json_decode($content, true);
+        }
 
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $parameters->get('username')));
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $parameters['username']));
 
-        if (!$user || $parameters->get('password') !== $user->getPassword()) {
+        if (!$user || $parameters['password'] !== $user->getPassword()) {
             return new JsonResponse(array('message' => 'Utilisateur inexistant ou mot de passe incorrect.'), 401);
         }
 
@@ -90,7 +99,7 @@ class DefaultController extends Controller
 
         $response = array(
             'message' => 'Utilisateur connecté.',
-            'username' => $parameters->get('username'),
+            'username' => $parameters['username'],
             'token' => $apiKey,
         );
 

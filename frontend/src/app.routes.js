@@ -18,6 +18,10 @@ angular.module(routes, ['ui.router'])
             url: "/login",
             template: "<login></login>",
           })
+          .state("speech", {
+            url: "/speech",
+            template: "<speech></speech>",
+          })
     }]);
 
 export default routes;

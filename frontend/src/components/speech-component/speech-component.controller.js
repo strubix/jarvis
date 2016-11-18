@@ -1,7 +1,7 @@
 export default class SpeechComponentController {
-  constructor($rootScope) {
+  constructor($rootScope, SpeechService) {
     this.$rootScope = $rootScope;
-
+    this.SpeechService = SpeechService;
     this.form = {};
 
     if ('webkitSpeechRecognition' in window) {
@@ -14,12 +14,13 @@ export default class SpeechComponentController {
     }
 
     this.recognition.onresult = (event) => {
+      this.recognition.stop();
       for (var i = event.resultIndex; i < event.results.length; i++) {
-        this.recognition.stop();
         const transcript = event.results[i][0].transcript;
         this.$rootScope.$apply(() => {
           console.log(transcript);
           this.form.value = this.answer(transcript.trim());
+          this.SpeechService.request(transcript.trim());
         });
       }
     }
@@ -39,4 +40,4 @@ export default class SpeechComponentController {
     this.recognition.start();
   }
 }
-SpeechComponentController.$inject = ['$rootScope'];
+SpeechComponentController.$inject = ['$rootScope', 'SpeechService'];
