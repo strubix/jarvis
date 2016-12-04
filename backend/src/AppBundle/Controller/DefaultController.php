@@ -11,7 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    function generateRandomString($length = 255)
+    /**
+     * Generates ApiKey
+     *
+     * @param int $length
+     *
+     * @return string
+     */
+    private function generateRandomString($length = 255)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -79,11 +86,8 @@ class DefaultController extends Controller
      */
     public function loginAction(Request $request)
     {
-        $parameters = array();
         $content = $this->get("request")->getContent();
-        if (!empty($content)) {
-            $parameters = json_decode($content, true);
-        }
+        $parameters = json_decode($content, true);
 
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $parameters['username']));
