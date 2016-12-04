@@ -8,19 +8,15 @@ export default class LoginController {
   confirm(credentials) {
     this.UserService.login(credentials)
         .then((response) => {
-
-          console.log(response);
-
           let message = response.data.message;
           delete response.data.message;
           this.$window.sessionStorage.setItem('jarvis', JSON.stringify(response.data));
+
+          this.UserService.setUser(credentials.username);
           alert(message);
         })
-        .catch((response) => {
-
-          console.log(response);
-
-          alert(response.data.message);
+        .catch(() => {
+          alert('Une erreur est survenue. Veuillez réessayer.');
         });
   }
 }

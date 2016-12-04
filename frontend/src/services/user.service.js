@@ -7,12 +7,10 @@ export default class UserService extends ApiService {
   }
 
   register(credentials) {
-    console.log(credentials);
     return this.$http.post(`${this.url}register`, credentials);
   }
 
   login(credentials) {
-    console.log(credentials);
     return this.$http.post(`${this.url}login`, credentials);
   }
 

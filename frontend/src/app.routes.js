@@ -21,6 +21,13 @@ angular.module(routes, ['ui.router'])
           .state("speech", {
             url: "/speech",
             template: "<speech></speech>",
+            resolve: {
+              security: ['$q', 'UserService', '$state', function($q, UserService, $state){
+                if(!UserService.user)
+                  return $state.go('login');{
+                }
+              }]
+            }
           })
     }]);
 
